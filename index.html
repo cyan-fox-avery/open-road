@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8f3ea" />
+  <meta name="description" content="An interactive road-trip discovery map for finding interesting places and building your own trip outline." />
+  <title>Road Trip Atlas</title>
+
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="preconnect" href="https://tile.openstreetmap.org" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#map">Skip to map</a>
+
+  <header class="topbar">
+    <div class="brand-block">
+      <p class="eyebrow">DISCOVER · CHOOSE · WANDER</p>
+      <div class="brand-row">
+        <h1>Road Trip Atlas</h1>
+        <span class="version-pill">v0.1</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="soft-button" id="fitAllButton" type="button" aria-label="Show all visible attractions on the map">
+        <span aria-hidden="true">◎</span>
+        <span>Show all</span>
+      </button>
+      <button class="trip-button" id="tripToggle" type="button" aria-controls="tripPanel" aria-expanded="false">
+        <span>Trip</span>
+        <span class="trip-count" id="tripCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="map-zone" aria-label="Interactive attraction map">
+      <div class="filter-wrap" aria-label="Attraction category filters">
+        <div class="filter-strip" id="categoryFilters"></div>
+      </div>
+
+      <div id="map" tabindex="0" aria-label="Map showing road-trip attractions across Canada and the United States"></div>
+
+      <div class="map-status" id="mapStatus" aria-live="polite"></div>
+
+      <article class="detail-card" id="detailCard" aria-live="polite" aria-hidden="true">
+        <button class="icon-button detail-close" id="detailClose" type="button" aria-label="Close attraction details">×</button>
+        <div id="detailContent"></div>
+      </article>
+    </section>
+
+    <aside class="trip-panel" id="tripPanel" aria-label="Your road trip">
+      <div class="trip-handle" aria-hidden="true"></div>
+      <div class="trip-panel-header">
+        <div>
+          <p class="eyebrow">YOUR ROAD TRIP</p>
+          <h2><span id="tripTitleCount">0</span> selected stops</h2>
+        </div>
+        <div class="trip-header-actions">
+          <button class="text-button" id="clearTripButton" type="button" disabled>Clear</button>
+          <button class="icon-button mobile-only" id="tripClose" type="button" aria-label="Close trip panel">×</button>
+        </div>
+      </div>
+
+      <p class="trip-note">
+        The line on the map is only a <strong>trip outline</strong>: straight segments show your chosen stop order, not driving directions.
+      </p>
+
+      <ol class="trip-list" id="tripList"></ol>
+
+      <div class="empty-trip" id="emptyTrip">
+        <div class="empty-trip-icon" aria-hidden="true">↗</div>
+        <p><strong>Your route starts with curiosity.</strong></p>
+        <p>Tap any map marker, then choose <em>Add to trip</em>. You decide the order.</p>
+      </div>
+
+      <div class="trip-footer">
+        <button class="outline-button" id="fitTripButton" type="button" disabled>Fit trip on map</button>
+      </div>
+    </aside>
+  </main>
+
+  <div class="scrim" id="scrim" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="attractions.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
